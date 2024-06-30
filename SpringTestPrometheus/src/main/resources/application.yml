@@ -1,0 +1,21 @@
+spring:
+    application:
+        name: spring-test-prometheus
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        username: postgres
+        password: postgres
+        url: jdbc:postgresql://host.docker.internal:5432/testdb
+    liquibase:
+        enabled: true
+        change-log: classpath:db.changelog/changelog-master.yml
+management:
+    endpoints.web.exposure.include: 'prometheus, health'
+    metrics:
+        distribution:
+            percentiles-histogram:
+                "[http.server.requests]": true
+    prometheus:
+        metrics:
+            export:
+                enabled: true
